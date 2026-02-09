@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import LoginPage from "./pages/login";
 import HomePage from "./pages/dashboard";
+// import Home from "./pages/me";
 
 function App() {
   const [path, setpath] = useState("");
@@ -19,6 +20,8 @@ function App() {
 
     setloading(false);
   };
+
+  // return <Home />;
 
   if (loading) return <div>Loading...</div>;
 
