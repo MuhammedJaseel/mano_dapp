@@ -7,8 +7,6 @@ export default function LoginPage({ reload }: { reload: () => void }) {
       return;
     }
 
-    console.log(window.ethereum);
-
     try {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
