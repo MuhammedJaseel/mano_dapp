@@ -2,17 +2,28 @@ export default function LoginPage({ reload }: { reload: () => void }) {
   // const [account, setAccount] = useState<string | null>(null);
 
   const connectMetaMask = async () => {
-    const { ethereum } = window as any;
-    if (!ethereum) {
+    if (!window.ethereum) {
       alert("MetaMask not detected");
       return;
     }
-    const accounts = await ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    // setAccount(accounts[0]);
-    window.localStorage.setItem("account", accounts[0]);
-    reload();
+
+    console.log(window.ethereum);
+
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+
+      await window.ethereum.request({
+        method: "personal_sign",
+        params: ["message", accounts[0]],
+      });
+
+      localStorage.setItem("account", accounts[0]);
+      reload();
+    } catch (err) {
+      console.error("User rejected or error:", err);
+    }
   };
 
   return (
